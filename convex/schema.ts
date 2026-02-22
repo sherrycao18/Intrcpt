@@ -1,45 +1,45 @@
 import { defineSchema, defineTable } from "convex/server";
+import { v } from "convex/values";
 
 export default defineSchema({
   calls: defineTable({
-    id: defineTable.id,
-    fromNumber: defineTable.string,
-    toNumber: defineTable.string,
-    status: defineTable.string,
-    startedAt: defineTable.number,
-    endedAt: defineTable.optional(defineTable.number),
-    threatScore: defineTable.optional(defineTable.number),
-    tactics: defineTable.optional(defineTable.array(defineTable.string)),
+    fromNumber: v.string(),
+    toNumber: v.string(),
+    status: v.string(),
+    startedAt: v.number(),
+    endedAt: v.optional(v.number()),
+    threatScore: v.optional(v.number()),
+    tactics: v.optional(v.array(v.string())),
   }),
 
   transcriptChunks: defineTable({
-    callId: defineTable.id,
-    role: defineTable.string,
-    text: defineTable.string,
-    timestamp: defineTable.number,
-    redacted: defineTable.optional(defineTable.boolean),
+    callId: v.id("calls"),
+    role: v.string(),
+    text: v.string(),
+    timestamp: v.number(),
+    redacted: v.optional(v.boolean()),
   }),
 
   scores: defineTable({
-    callId: defineTable.id,
-    score: defineTable.number,
-    level: defineTable.string,
-    tactics: defineTable.array(defineTable.string),
-    reason: defineTable.string,
-    timestamp: defineTable.number,
+    callId: v.id("calls"),
+    score: v.number(),
+    level: v.string(),
+    tactics: v.array(v.string()),
+    reason: v.string(),
+    timestamp: v.number(),
   }),
 
   actions: defineTable({
-    callId: defineTable.id,
-    action: defineTable.string,
-    timestamp: defineTable.number,
-    reason: defineTable.optional(defineTable.string),
-    metadata: defineTable.optional(defineTable.string),
+    callId: v.id("calls"),
+    action: v.string(),
+    timestamp: v.number(),
+    reason: v.optional(v.string()),
+    metadata: v.optional(v.string()),
   }),
 
   settings: defineTable({
-    key: defineTable.string,
-    value: defineTable.string,
-    updatedAt: defineTable.number,
+    key: v.string(),
+    value: v.string(),
+    updatedAt: v.number(),
   }),
 });
